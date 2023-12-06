@@ -17,6 +17,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 //ROUTES
+
+
 app.get('/', async (req, res) => {
   const posts = await Post.find({})
   res.render('index',{
@@ -24,6 +26,15 @@ app.get('/', async (req, res) => {
   });
 
 });
+app.get('/posts/:id', async (req, res) => {
+
+  // res.render('about')
+  const post =  await Post.findById(req.params.id);
+  res.render('post',{
+    post
+  })
+});
+
 
 app.get('/about', (req, res) => {
   res.render('about')
